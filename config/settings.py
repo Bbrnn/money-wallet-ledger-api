@@ -15,10 +15,8 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
@@ -27,10 +25,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("SECRET_KEY", "fallback-insecure-key")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv("DEBUG","False") == True
+DEBUG = os.getenv("DEBUG", "False") == True
 
 ALLOWED_HOSTS = ["*"]
-
 
 # Application definition
 
@@ -43,12 +40,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # Local apps
     "wallets.apps.WalletsConfig",
-    "rest_framework"
-
+    "rest_framework",
+    "drf_yasg",
 ]
 
 MIDDLEWARE = [
-
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -56,10 +52,21 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    #custom middleware
-    'wallets.middleware.RequestLoggingMiddleware'
-
+    # custom middleware
+    "wallets.middleware.IdempotencyMiddleware",
 ]
+
+# REST Framework settings (Cleaned up to work smoothly with drf-yasg)
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
+    ]
+}
+
+# drf-yasg configuration
+SWAGGER_SETTINGS = {
+    'DEFAULT_INFO': 'config.urls.swagger_info',
+}
 
 ROOT_URLCONF = 'config.urls'
 
@@ -80,7 +87,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
@@ -94,7 +100,6 @@ DATABASES = {
         "PORT": os.getenv("DB_PORT", "5432"),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
@@ -114,7 +119,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
@@ -125,7 +129,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/

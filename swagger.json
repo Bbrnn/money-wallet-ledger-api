@@ -1,0 +1,89 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Money Wallet Ledger API",
+        "description": "ACID-compliant double-entry ledger API with idempotency controls",
+        "version": "v1"
+    },
+    "basePath": "/api/v1",
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "securityDefinitions": {
+        "Basic": {
+            "type": "basic"
+        }
+    },
+    "security": [
+        {
+            "Basic": []
+        }
+    ],
+    "paths": {
+        "/deposits/": {
+            "post": {
+                "operationId": "deposits_create",
+                "description": "",
+                "parameters": [],
+                "responses": {
+                    "201": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "deposits"
+                ]
+            },
+            "parameters": []
+        },
+        "/transfers/": {
+            "post": {
+                "operationId": "transfers_create",
+                "description": "",
+                "parameters": [],
+                "responses": {
+                    "201": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "transfers"
+                ]
+            },
+            "parameters": []
+        },
+        "/wallets/": {
+            "get": {
+                "operationId": "wallets_list",
+                "description": "",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "wallets"
+                ]
+            },
+            "post": {
+                "operationId": "wallets_create",
+                "description": "",
+                "parameters": [],
+                "responses": {
+                    "201": {
+                        "description": ""
+                    }
+                },
+                "tags": [
+                    "wallets"
+                ]
+            },
+            "parameters": []
+        }
+    },
+    "definitions": {}
+}
